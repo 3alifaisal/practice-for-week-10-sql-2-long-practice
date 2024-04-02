@@ -1,6 +1,41 @@
-PRAGMA foreign_keys=on; -- Turns foreign key support in SQLite3 on
+PRAGMA foreign_keys=on; 
+-- Turns foreign key support in SQLite3 on
 -- Your code here
 
+-- Valuable lesson learned drop the table in reverse order of dependancy 
+
+
+DROP TABLE IF EXISTS cat_owners;
+DROP TABLE IF EXISTS toys;
+DROP TABLE IF EXISTS cats;
+DROP TABLE IF EXISTS owners;
+
+
+CREATE TABLE  owners (
+  id INTEGER PRIMARY KEY,
+  first_name VARCHAR(20),
+  last_name VARCHAR(20)
+);
+
+CREATE TABLE cats (
+  id INTEGER PRIMARY KEY,
+  name VARCHAR(20),
+  birth_year INTEGER
+);
+
+
+CREATE TABLE  cat_owners (
+  
+  cat_id INTEGER  REFERENCES cats(id) ON DELETE CASCADE,
+  owner_id INTEGER REFERENCES owners(id) ON DELETE CASCADE
+);
+
+CREATE TABLE  toys (
+  id INTEGER PRIMARY KEY,
+  name VARCHAR(20),
+
+  cat_id INTEGER REFERENCES cats(id) ON DELETE CASCADE
+);
 INSERT INTO owners
   (first_name, last_name)
 VALUES
