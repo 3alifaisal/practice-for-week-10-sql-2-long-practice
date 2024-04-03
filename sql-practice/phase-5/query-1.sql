@@ -1,0 +1,1 @@
+SELECT * FROM owners WHERE last_name LIKE "%r%" LIMIT 1;
